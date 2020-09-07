@@ -17,57 +17,20 @@ body {
   border: none;
   background-color: #000;
   color: #faebd7;
+  caret-color: transparent;
+  font-weight: bolder;
 }
 
-.input .underscore {
-  -webkit-animation: 1s blink step-end infinite;
-  -moz-animation: 1s blink step-end infinite;
-  -ms-animation: 1s blink step-end infinite;
-  -o-animation: 1s blink step-end infinite;
-  animation: 1s blink step-end infinite;
+.input:focus {
+  outline: none;
 }
 
-@keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
+.blink_me {
+  animation: blinker 1s step-end infinite;
+}
+
+@keyframes blinker {
   50% {
-    color: black;
-  }
-}
-
-@-moz-keyframes blink {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: black;
-  }
-}
-
-@-webkit-keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: black;
-  }
-}
-
-@-ms-keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: black;
-  }
-}
-
-@-o-keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: black;
+    opacity: 0;
   }
 }
