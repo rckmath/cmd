@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
-export default () =>
-  <div className="form">
-    <form action="#">
-      <label for="input">C:\Users\erick{'>'}</label>
+
+const Input = () => {
+  const input = useRef(null);
+
+  const handleInputChange = (text) => {
+    input.current.value
+      ? input.current.className = "input"
+      : input.current.className = "input blink"
+  }
+
+  const handleSubmit = (event) =>{
+    if (event.key === 'Enter') { console.log('Kamehameha') }
+  }
+
+  return (
+    <div className="form">
+      <label htmlFor="input">C:\Users\erick{'>'}</label>
       <input
+        ref={ input }
         autoFocus
         type="text"
         id="input"
-        className="input blink_me"
-        defaultValue="_"
+        key="input"
+        placeholder="_"
+        className="input blink"
+        onKeyPress={ handleSubmit }
+        onChange={ handleInputChange }
       />
-    </form>
-  </div>
+    </div>
+  )
+}
+
+export default Input;

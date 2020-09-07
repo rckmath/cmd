@@ -5,7 +5,7 @@ body {
   font-size: 0.75rem
 }
 
-.top p {
+.main p {
   margin-top: -0.75rem;
 }
 
@@ -18,14 +18,18 @@ body {
   background-color: #000;
   color: #faebd7;
   caret-color: transparent;
-  font-weight: bolder;
 }
 
 .input:focus {
   outline: none;
 }
 
-.blink_me {
+.input::placeholder {
+  color: #faebd7;
+  font-weight: bolder;
+}
+
+.blink {
   animation: blinker 1s step-end infinite;
 }
 
