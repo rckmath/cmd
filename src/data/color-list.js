@@ -1,4 +1,4 @@
-const colorList = [
+const ColorList = [
     { id: '0', hex: '#000000', name: 'Preto.' },
     { id: '1', hex: '#090974', name: 'Azul' },
     { id: '2', hex: '#135f35', name: 'Verde' },
@@ -6,7 +6,7 @@ const colorList = [
     { id: '4', hex: '#a81618', name: 'Vermelho' },
     { id: '5', hex: '#d047e8', name: 'Roxo' },
     { id: '6', hex: '#c56e1b', name: 'Amarelo' },
-    { id: '7', hex: '#FFFFFF', name: 'Branco' },
+    { id: '7', hex: '#ffffff', name: 'Branco' },
     { id: '8', hex: '#827f7f', name: 'Cinza' },
     { id: '9', hex: '#0202ef', name: 'Azul claro' },
     { id: 'A', hex: '#17f527', name: 'Verde claro' },
@@ -17,4 +17,4 @@ const colorList = [
     { id: 'F', hex: '#f8fbf9', name: 'Branco brilhante' },
   ];
   
-  export default colorList;
+  export default ColorList;

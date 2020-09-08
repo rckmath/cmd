@@ -1,4 +1,4 @@
-const socialList = [
+const SocialList = [
   { id: 1, name: 'Github', url: 'https://www.instagram.com/rck_math/' },
   { id: 2, name: 'LinkedIn', url: 'https://www.linkedin.com/in/rckmath/' },
   { id: 3, name: 'Facebook', url: 'https://www.facebook.com/erick.matheus4' },
@@ -7,4 +7,4 @@ const socialList = [
   { id: 6, name: 'Instagram', url: 'https://www.instagram.com/rck_math/' },
 ];
 
-export default socialList;
+export default SocialList;
