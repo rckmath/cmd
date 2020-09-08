@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CommandList from '../data/command-list';
+import CommandList from '../app/data/command-list';
 
 const Help = () => {
   

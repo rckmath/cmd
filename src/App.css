@@ -1,3 +1,15 @@
+body {
+  background-color: #000;
+  color: #faebd7;
+  font-family: Consolas;
+  font-size: 0.75rem
+}
+
+a {
+  color: #faebd7;
+  text-decoration: none;
+}
+
 .App {
   display: flex;
   flex: 1;
