@@ -1,15 +1,12 @@
 import './index.css'; 
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Input from './components/input';
+import App from './App';
 
 ReactDOM.render(
-  <div className="main">
-    <h4>Portfolio [versão 0.1.0]</h4>
-    <p>(c) 2020 Erick Matheus. Todos os direitos reservados.</p>
-    <Input/>
-  </div>,
+  <App/>,
   document.getElementById('root')
 )
 

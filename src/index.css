@@ -5,19 +5,12 @@ body {
   font-size: 0.75rem
 }
 
-.main p {
-  margin-top: -0.75rem;
-}
-
-.form {
-  margin-top: 2rem;
-}
-
 .input {
   border: none;
   background-color: #000;
   color: #faebd7;
   caret-color: transparent;
+  font-family: Consolas;
 }
 
 .input:focus {
