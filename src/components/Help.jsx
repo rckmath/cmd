@@ -6,16 +6,16 @@ const Help = () => {
   
   return (
     <table>
-      {
-        CommandList.map(command => (
-          <>
+      <tbody>
+        {
+          CommandList.map(command => (
             <tr key={ command.id }>
               <td>{ command.syntax }</td>
               <td>{ command.description }</td>
             </tr>
-          </>
-        ))
-      }
+          ))
+        }
+      </tbody>
     </table>
   )
 }
