@@ -15,7 +15,7 @@
   font-weight: bolder;
 }
 
-.blink {
+.blink[type=text] {
   animation: blinker 1s step-end infinite;
 }
 

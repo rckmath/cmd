@@ -1,34 +1,40 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 
+const Input = ({ submit }) => {
+  const inputRef = useRef(null);
 
-const Input = () => {
-  const input = useRef(null);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [submit]);
 
   const toggleBlink = () => {
-    input.current.value
-      ? input.current.className = "input"
-      : input.current.className = "input blink"
+    inputRef.current?.value
+      ? inputRef.current.className = "input"
+      : inputRef.current.className = "input blink"
   }
 
-  const handleSubmit = (event) => {
-    if (event.key === 'Enter') { console.log('Kamehameha') }
-  }
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+    console.log('༼ つ ◕_◕ ༽つ');
+    inputRef.current.disabled = true;
+    submit(inputRef.current?.value);
+  }, [submit]);
 
   return (
     <div>
-      <label htmlFor="input">C:\Users\erick{'>'}</label>
-      <input
-        className="input blink"
-        id="input"
-        key="input"
-        ref={ input }
-        autoComplete="false"
-        autoFocus
-        type="text"
-        placeholder="_"
-        onChange={ toggleBlink }
-        onKeyPress={ handleSubmit }
-      />
+      <form onSubmit={ handleSubmit }>
+        <label htmlFor="input">C:\Users\erick{'>'}</label>
+        <input
+          className="input blink"
+          id="input"
+          key="input"
+          ref={ inputRef }
+          autoComplete="false"
+          type="text"
+          placeholder="_"
+          onChange={ toggleBlink }
+        />
+      </form>
     </div>
   )
 }

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+
 import Projects from '../app/functions/projects';
+import Table from './layout/Table';
 
 
 const Repositories = () => {
@@ -9,18 +11,16 @@ const Repositories = () => {
   useEffect(() => { getRepositories() }, []);
 
   return (
-    <table>
-      <tbody>
-        {
-          repositories && repositories.map(repo => (
-            repo ?
-              <tr key={ repo.id }>
-                <td><a href={ repo.html_url }>{ repo.name }</a></td>
-              </tr> : undefined
-          ))
-        }
-      </tbody>
-    </table>
+    <Table>
+      {
+        repositories && repositories.map(repo => (
+          repo ?
+            <tr key={ repo.id }>
+              <td><a href={ repo.html_url }>{ repo.name }</a></td>
+            </tr> : undefined
+        ))
+      }
+    </Table>
   )
 }
 
