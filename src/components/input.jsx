@@ -15,7 +15,6 @@ const Input = ({ submit }) => {
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    console.log('༼ つ ◕_◕ ༽つ');
     inputRef.current.disabled = true;
     submit(inputRef.current?.value);
   }, [submit]);
