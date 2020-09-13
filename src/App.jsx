@@ -11,7 +11,7 @@ export default (props) => {
   const [childCounter, setChildCounter] = useState(1);
   const [child, setChild] = useState(undefined);
   const [children, setChildren] = useState([
-    <Input key={ 1 } submit={ command => setCommand(command) }/>,
+    <Input key={ childCounter } submit={ command => setCommand(command) }/>,
   ]);
 
   useEffect(() => {

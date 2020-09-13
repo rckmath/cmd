@@ -1,4 +1,4 @@
-import { calc, color, ip, misc } from './index';
+import { calc, color, misc } from './index';
 import React from 'react';
 
 import { IpAddress, Help, Social, Repositories } from '../../components';
@@ -28,8 +28,12 @@ const select = (input) => {
     case Command.ABOUT:
       return (
         <div>
-          Graduando em Engenharia de Software pela PUC Campinas e atuando como desenvolvedor backend. ༼ つ ◕_◕ ༽つ<br/><br/>
-          
+          Nome: Erick M. L. Pacheco<br/>
+          De: Campinas<br/>
+          Idade: 20<br/>
+          Tipo: Nerd<br/>
+          Descrição: Graduando em Engenharia de Software pela PUC Campinas e atuando como desenvolvedor backend. ༼ つ ◕_◕ ༽つ<br/>
+          <br/>
           <strong>Linguagens</strong><br/>
           <br/>
           VHDL: ■◧□□□□□□□□ 15%<br/>

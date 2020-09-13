@@ -15,7 +15,7 @@ const Input = ({ submit }) => {
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    inputRef.current.disabled = true;
+    if (inputRef.current?.value) { inputRef.current.disabled = true };
     submit(inputRef.current?.value);
   }, [submit]);
 
@@ -28,6 +28,7 @@ const Input = ({ submit }) => {
           id="input"
           key="input"
           ref={ inputRef }
+          type="text"
           placeholder="_"
           onChange={ toggleBlink }
         />
