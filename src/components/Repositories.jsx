@@ -13,12 +13,10 @@ const Repositories = () => {
   return (
     <Table>
       {
-        (repositories && repositories.map(repo => (
-          repo ?
-            <tr key={ repo.id }>
-              <td><a href={ repo.html_url }>{ repo.name }</a></td>
-            </tr> : undefined
-        ))) || `Buscando...`
+        repositories && repositories.map(repo => (
+          <tr key={ repo.id }>
+            <td><a href={ repo.html_url }>{ repo.name }</a></td>
+          </tr> ))
       }
     </Table>
   )

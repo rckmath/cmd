@@ -2,12 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 import './App.css';
 import parser from './app/functions/parser';
+import color from './app/functions/color';
 import { Input } from './components';
 
 
 export default (props) => {
   const [command, setCommand] = useState(null);
   const [newChild, setNewChild] = useState(false);
+  const [colors, setColors] = useState({
+    backgroundColor: "#000",
+    color: "#faebd7",
+  });
   const [childCounter, setChildCounter] = useState(1);
   const [child, setChild] = useState(undefined);
   const [children, setChildren] = useState([
@@ -16,6 +21,11 @@ export default (props) => {
 
   useEffect(() => {
     if (command) {
+      if (command.includes('color')) {
+        const [, attr] = command.split(' ');
+        setColors(color.get(attr));
+      }
+
       setNewChild(true);
       setChildCounter(childCounter + 1);
       setChild(parser(command));
@@ -33,6 +43,10 @@ export default (props) => {
       setNewChild(false);
     }
   }, [child, childCounter, children, newChild])
+
+  useEffect(() => {
+    color.change(colors);
+  }, [colors, children]);
 
   return (
     <div className="App">

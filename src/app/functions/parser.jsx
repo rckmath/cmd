@@ -1,4 +1,4 @@
-import { calc, color, misc } from './index';
+import { calc, misc } from './index';
 import React from 'react';
 
 import { IpAddress, Help, Social, Repositories } from '../../components';
@@ -105,9 +105,8 @@ const select = (input) => {
       )
     
     case Command.COLOR:
-      color(attr);
       return (
-        <br/>
+        <br/>    
       )
 
     case Command.CLS:
