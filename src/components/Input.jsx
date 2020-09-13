@@ -16,7 +16,7 @@ const Input = ({ submit }) => {
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     if (inputRef.current?.value) { inputRef.current.disabled = true };
-    submit(inputRef.current?.value);
+    submit(inputRef.current?.value.toLowerCase());
   }, [submit]);
 
   return (

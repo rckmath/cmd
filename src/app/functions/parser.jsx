@@ -8,11 +8,7 @@ import Command from '../enum/command';
 const select = (input) => {
   const [command, attr] = input.split(' ');
 
-  const result = Object.values(CommandList).find(o => (
-    o.name === command
-    ? o.id
-    : false
-  ));
+  const result = Object.values(CommandList).find(o => (o.name === command ? o.id : false));
 
   if (!result) {
     return (
@@ -43,6 +39,15 @@ const select = (input) => {
           C/C++: ■■■■□□□□□□ 40%<br/>
           Java: ■■■■□□□□□□ 40%<br/>
           Node.js: ■■■■■□□□□□ 50%<br/>
+          <br/>
+        </div>
+      )
+    
+    case Command.CALC:
+      return (
+        <div>
+          { calc(attr) }
+          <br/>
           <br/>
         </div>
       )

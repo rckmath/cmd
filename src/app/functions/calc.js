@@ -35,12 +35,9 @@ export default function (ans) {
     }
     
     return result === Infinity
-      ? '∞'
-      : isNaN(result)
-      ? 0
-      : result;
+      ? '∞' : isNaN(result) ? 0 : result;
 
   } catch (err) {
-    return 'Erro.';
+    return 'Verifique os parâmetros inseridos.';
   }
 }
