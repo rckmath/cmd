@@ -8,7 +8,5 @@ export default function (input) {
     color: ColorList.find(c => ( c.id === input[1] )).hex,
   }
 
-  console.log(colors);
-
   return colors;
 }

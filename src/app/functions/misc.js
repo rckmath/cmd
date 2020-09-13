@@ -1,8 +1,8 @@
 export default class misc {
-  open(url) {
-    if (!url.includes('http://')) {
-      url = 'http://' + url;
-    }
+  static open(url) {
+    if (!url) { return 'URL inválida!' }
+
+    if (!url.includes('http://')) { url = 'http://' + url; }
   
     const valid = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/g.test(url)
   
@@ -10,12 +10,8 @@ export default class misc {
   
     window.open(url);
   }
-  
-  cls() {
-    return null;
-  }
-  
-  time() {
+
+  static time() {
     return `Hora atual: ${
       new Date(Date.now())
         .toLocaleString()
@@ -24,13 +20,19 @@ export default class misc {
     }`
   }
   
-  date() {
+  static date() {
     return `Data atual: ${
       new Date(Date.now())
         .toLocaleString()
         .slice(0, 10)
         .replace(/-/g,'/')
     }`
+  }
+
+  static shutdown() {
+    const res = window.confirm('NãaooOOo! Deseja mesmo sair? :(');
+
+    if (res) { return window.close() }
   }
 }
 

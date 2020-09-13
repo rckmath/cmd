@@ -8,6 +8,7 @@ import { Input } from './components';
 export default (props) => {
   const [command, setCommand] = useState(null);
   const [newChild, setNewChild] = useState(false);
+  const [childCounter, setChildCounter] = useState(1);
   const [child, setChild] = useState(undefined);
   const [children, setChildren] = useState([
     <Input key={ 1 } submit={ command => setCommand(command) }/>,
@@ -16,21 +17,22 @@ export default (props) => {
   useEffect(() => {
     if (command) {
       setNewChild(true);
-      setChild(parser(command))
+      setChildCounter(childCounter + 1);
+      setChild(parser(command));
       setCommand(null);
     }
-  }, [command]);
+  }, [childCounter, command]);
 
   useEffect(() => {
     if (newChild) {
       if (child) {
-        setChildren([...children, child, <Input key={ children.length + 2 } submit={ command => setCommand(command) }/>])
+        setChildren([...children, child, <Input key={ childCounter } submit={ command => setCommand(command) }/>])
       } else {
-        setChildren([<Input key={ 1 } submit={ command => setCommand(command) }/>])
+        setChildren([<Input key={ childCounter } submit={ command => setCommand(command) }/>])
       }
       setNewChild(false);
     }
-  }, [child, children, newChild])
+  }, [child, childCounter, children, newChild])
 
   return (
     <div className="App">

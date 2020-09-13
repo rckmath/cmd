@@ -6,19 +6,19 @@ import Table from './layout/Table';
 
 const Repositories = () => {
   const [repositories, setRepositories] = useState(['']);
-  const getRepositories = async () => (setRepositories(await Projects()))
+  const getRepositories = async () => (setRepositories(await Projects()));
  
   useEffect(() => { getRepositories() }, []);
 
   return (
     <Table>
       {
-        repositories && repositories.map(repo => (
+        (repositories && repositories.map(repo => (
           repo ?
             <tr key={ repo.id }>
               <td><a href={ repo.html_url }>{ repo.name }</a></td>
             </tr> : undefined
-        ))
+        ))) || `Buscando...`
       }
     </Table>
   )

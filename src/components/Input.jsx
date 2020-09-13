@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 
-const Input = ({ submit, key }) => {
+const Input = ({ submit }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -21,15 +21,13 @@ const Input = ({ submit, key }) => {
 
   return (
     <div>
-      <form onSubmit={ handleSubmit }>
+      <form onSubmit={ handleSubmit } autoComplete="off">
         <label htmlFor="input">C:\Users\erick{'>'}</label>
         <input
           className="input blink"
           id="input"
           key="input"
           ref={ inputRef }
-          autoComplete="false"
-          type="text"
           placeholder="_"
           onChange={ toggleBlink }
         />
