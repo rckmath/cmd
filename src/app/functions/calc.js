@@ -11,15 +11,20 @@ function calculate(result, number, op) {
       return result /= number;
     case '^':
       return Math.pow(result, number);
+    case '%':
+      return result *= number / 100;
     default:
       return 'Erro.';
     }
 }
 
 export default function (ans) {
-  const operations = ['+', '-', '*', "/", "^"];
+  const operations = ['+', '-', '*', "/", "^", "%"];
   
   try {
+    ans = ans.replace('calc', '');
+    ans = ans.replace(' ', '');
+
     const op = operations.find(op => ans.includes(op));
 
     if (!op) { return 'Operação inválida.'; }

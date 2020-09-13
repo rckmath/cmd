@@ -46,7 +46,7 @@ const select = (input) => {
     case Command.CALC:
       return (
         <div>
-          { calc(attr) }
+          { calc(input) }
           <br/>
           <br/>
         </div>
@@ -105,12 +105,9 @@ const select = (input) => {
       )
     
     case Command.COLOR:
+      color(attr);
       return (
-        <div>
-          { color(attr) }
-          W.I.P.
-          <br/>
-        </div>
+        <br/>
       )
 
     case Command.CLS:

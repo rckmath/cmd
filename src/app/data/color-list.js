@@ -9,12 +9,12 @@ const ColorList = [
     { id: '7', hex: '#ffffff', name: 'Branco' },
     { id: '8', hex: '#827f7f', name: 'Cinza' },
     { id: '9', hex: '#0202ef', name: 'Azul claro' },
-    { id: 'A', hex: '#17f527', name: 'Verde claro' },
-    { id: 'B', hex: '#d7f6f7', name: 'Verde-água claro' },
-    { id: 'C', hex: '#d4514a', name: 'Vermelho claro' },
-    { id: 'D', hex: '#f1a8ee', name: 'Lilás' },
-    { id: 'E', hex: '#eff05f', name: 'Amarelo claro' },
-    { id: 'F', hex: '#f8fbf9', name: 'Branco brilhante' },
+    { id: 'a', hex: '#17f527', name: 'Verde claro' },
+    { id: 'b', hex: '#d7f6f7', name: 'Verde-água claro' },
+    { id: 'c', hex: '#d4514a', name: 'Vermelho claro' },
+    { id: 'd', hex: '#f1a8ee', name: 'Lilás' },
+    { id: 'e', hex: '#eff05f', name: 'Amarelo claro' },
+    { id: 'f', hex: '#f8fbf9', name: 'Branco brilhante' },
   ];
   
   export default ColorList;
