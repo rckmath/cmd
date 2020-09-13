@@ -103,6 +103,15 @@ const select = (input) => {
           <br/>
         </div>
       )
+    
+    case Command.COLOR:
+      return (
+        <div>
+          { color(attr) }
+          W.I.P.
+          <br/>
+        </div>
+      )
 
     case Command.CLS:
       return;

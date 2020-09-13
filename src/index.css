@@ -1,4 +1,6 @@
 .input {
+  min-width: 50vw;
+  max-width: 80vw;
   border: none;
   background-color: #000;
   color: #faebd7;
