@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 
-const Input = ({ submit }) => {
+const Input = ({ submit, key }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
