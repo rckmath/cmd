@@ -1,22 +1,21 @@
 import React from 'react';
 
-import CommandList from '../data/command-list';
+import CommandList from '../app/data/command-list';
+import Table from './layout/Table';
 
 const Help = () => {
   
   return (
-    <table>
+    <Table>
       {
         CommandList.map(command => (
-          <>
-            <tr key={ command.id }>
-              <td>{ command.syntax }</td>
-              <td>{ command.description }</td>
-            </tr>
-          </>
+          <tr key={ command.id }>
+            <td>{ command.syntax }</td>
+            <td>{ command.description }</td>
+          </tr>
         ))
       }
-    </table>
+    </Table>
   )
 }
 
