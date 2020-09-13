@@ -23,7 +23,9 @@ export default (props) => {
     if (command) {
       if (command.includes('color')) {
         const [, attr] = command.split(' ');
-        setColors(color.get(attr));
+        if ((attr && attr.length === 2) && attr[0] !== attr[1]) {
+          setColors(color.get(attr));
+        }
       }
 
       setNewChild(true);

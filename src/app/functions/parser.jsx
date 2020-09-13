@@ -15,6 +15,8 @@ const select = (input) => {
       <div>
         '{ command }' não é reconhecido como um comando interno ou externo, um programa operável ou um arquivo em lotes.
         <br/>
+        Digite 'help' para listar os comandos existentes.
+        <br/>
         <br/>
       </div>
     )

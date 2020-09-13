@@ -2,9 +2,6 @@ import ColorList from '../data/color-list';
 
 export default class Color {
   static get(input) {
-    if (!input) { return 'Invalid parameters'; }
-    if (input && input.length !== 2) { return 'Invalid parameters'; }
-    
     const colors = {
       backgroundColor: ColorList.find(c => ( c.id === input[0] )).hex,
       color: ColorList.find(c => ( c.id === input[1] )).hex,
