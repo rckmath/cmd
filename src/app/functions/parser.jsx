@@ -4,6 +4,7 @@ import React from 'react';
 import { IpAddress, Help, Social, Repositories } from '../../components';
 import CommandList from '../data/command-list';
 import Command from '../enum/command';
+import about from './about';
 
 const select = (input) => {
   const [command, attr] = input.split(' ');
@@ -25,25 +26,8 @@ const select = (input) => {
   switch (result.id) {
     case Command.ABOUT:
       return (
-        <div>
-          Nome: Erick M. L. Pacheco<br/>
-          De: Campinas<br/>
-          Idade: 20<br/>
-          Tipo: Nerd<br/>
-          Descrição: Graduando em Engenharia de Software pela PUC Campinas e atuando como desenvolvedor backend. ༼ つ ◕_◕ ༽つ<br/>
-          <br/>
-          <strong>Linguagens</strong><br/>
-          <br/>
-          VHDL: ■◧□□□□□□□□ 15%<br/>
-          Assembly 8086: ■■□□□□□□□□ 20%<br/>
-          PHP: ■■□□□□□□□□ 20%<br/>
-          React.js: ■■◧□□□□□□□ 25%<br/>
-          C/C++: ■■■■□□□□□□ 40%<br/>
-          Java: ■■■■□□□□□□ 40%<br/>
-          Node.js: ■■■■■□□□□□ 50%<br/>
-          <br/>
-        </div>
-      )
+        <div dangerouslySetInnerHTML={{ __html: about() }} />
+      );
     
     case Command.CALC:
       return (

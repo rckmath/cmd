@@ -16,3 +16,7 @@ a {
   flex-wrap: wrap;
   flex-direction: column;
 }
+
+th, td {
+  padding-right: 15px;
+}

@@ -52,7 +52,7 @@ export default (props) => {
 
   return (
     <div className="App">
-      <p>Commandfolio [versão 0.1.0]<br/>(c) 2020 Erick Matheus. Todos os direitos reservados.</p>
+      <p>Commandfolio [versão 0.2.0]<br/>(c) 2021 Erick Matheus. Todos os direitos reservados.</p>
       { children.map(c => c) }
     </div>
   )
