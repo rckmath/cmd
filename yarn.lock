@@ -4867,20 +4867,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cmd-me@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "cmd-me@workspace:."
-  dependencies:
-    "@testing-library/jest-dom": ^6.1.4
-    "@testing-library/react": ^14.0.0
-    "@testing-library/user-event": ^14.5.1
-    gh-pages: ^6.0.0
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    react-scripts: 5.0.1
-  languageName: unknown
-  linkType: soft
-
 "co@npm:^4.6.0":
   version: 4.6.0
   resolution: "co@npm:4.6.0"
@@ -5004,6 +4990,20 @@ __metadata:
   checksum: 0f82321821fc27b83bd409510bb9deeebcfa799ff0bf5d102128b500b7af22872c0c92cb6a0ebc5a4cf19c6b550fba9cedfa7329d18c6442a625f851377bacf0
   languageName: node
   linkType: hard
+
+"commandfolio@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "commandfolio@workspace:."
+  dependencies:
+    "@testing-library/jest-dom": ^6.1.4
+    "@testing-library/react": ^14.0.0
+    "@testing-library/user-event": ^14.5.1
+    gh-pages: ^6.0.0
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    react-scripts: 5.0.1
+  languageName: unknown
+  linkType: soft
 
 "common-path-prefix@npm:^3.0.0":
   version: 3.0.0
