@@ -1,29 +1,19 @@
-.input {
-  min-width: 50vw;
-  max-width: 80vw;
-  border: none;
-  background-color: #000;
-  color: #faebd7;
-  caret-color: transparent;
-  font-family: Consolas;
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color: white;
+  background-color: black;
+
   font-size: 1rem;
-}
+  font-weight: 600;
+  font-family: "Consolas", "Courier New", monospace;
 
-.input:focus {
-  outline: none;
-}
+  color-scheme: light dark;
 
-.input::placeholder {
-  color: #faebd7;
-  font-weight: bolder;
-}
-
-.blink[type="text"] {
-  animation: blinker 1s step-end infinite;
-}
-
-@keyframes blinker {
-  50% {
-    opacity: 0;
-  }
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

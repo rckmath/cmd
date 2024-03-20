@@ -1,23 +1,61 @@
-body {
-  background-color: #000;
-  color: #faebd7;
-  font-family: Consolas;
-  font-size: 1rem;
+.cmd-container {
+  background-color: black;
+  color: white;
+  font-family: "Consolas", "Courier New", monospace;
+  padding: 20px;
+  height: 100vh;
+  overflow: auto;
 }
 
-a {
-  color: #faebd7;
-  text-decoration: none;
-}
-
-.App {
+.input-line {
   display: flex;
-  flex: 1;
-  flex-wrap: wrap;
-  flex-direction: column;
+  align-items: center;
 }
 
-th,
-td {
-  padding-right: 15px;
+.input-line span {
+  color: white;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.input-line span {
+  color: white;
+}
+
+.input-line input {
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: black;
+  color: white;
+  border: none;
+  outline: none;
+  font-family: "Consolas", "Courier New", monospace;
+  flex-grow: 1;
+  margin-left: 2px;
+  caret-color: transparent; /* Hide the default caret */
+}
+
+.input-line input::placeholder {
+  color: white;
+  font-weight: bolder;
+}
+
+.blinking-cursor {
+  animation: blink-caret 1s step-end infinite;
+  color: white;
+  position: absolute;
+}
+
+@keyframes blink-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.output-line {
+  white-space: pre;
 }
