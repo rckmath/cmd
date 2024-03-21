@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
+import useWindowSize from "./hooks/UseWindowSize";
 
 const commandDescriptions = {
   cd: 'Changes the directory. Usage: "cd [directory]" to navigate to a specific directory, or "cd .." to move up one directory level.',
@@ -41,11 +42,10 @@ const commandFunctions = {
     return "";
   },
   color: (argument, _currentPath, _setCurrentPath, changeBackgroundColor) => {
-    if (/^[0-9A-Fa-f]{2}$/.test(argument)) {
-      changeBackgroundColor(argument);
+    if (/^[0-9A-Fa-f]{2}$/.test(argument) && changeBackgroundColor(argument)) {
       return `Background color changed to ${argument}`;
     } else {
-      return 'Invalid color code. Use the format "color 0A"';
+      return 'Invalid color code combination. Use the format "color 0A"';
     }
   },
   cls: (
@@ -139,16 +139,7 @@ const App = () => {
 
   const inputRef = useRef(null);
   const containerRef = useRef(null);
-
-  useEffect(() => {
-    inputRef.current.focus();
-    document.body.style.backgroundColor = backgroundColor;
-    if (inputRef.current) inputRef.current.style.color = foregroundColor;
-  }, [backgroundColor, foregroundColor]);
-
-  useEffect(() => {
-    toggleCursorBlinking();
-  }, [input]);
+  const { height } = useWindowSize();
 
   const toggleCursorBlinking = () => {
     inputRef.current?.value
@@ -202,8 +193,12 @@ const App = () => {
     const newBackgroundColor = colorMap[colorCode[0].toUpperCase()];
     const newForegroundColor = colorMap[colorCode[1].toUpperCase()];
 
+    if (newBackgroundColor === newForegroundColor) return false;
+
     setBackgroundColor(newBackgroundColor);
     setForegroundColor(newForegroundColor);
+
+    return true;
   };
 
   const handleKeyDown = (e) => {
@@ -240,11 +235,26 @@ const App = () => {
     }
   };
 
+  useEffect(toggleCursorBlinking, [input]);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const { scrollHeight, clientHeight } = containerRef.current;
+      containerRef.current.scrollTop = scrollHeight - clientHeight;
+    }
+  }, [lines]);
+
+  useEffect(() => {
+    inputRef.current.focus();
+    document.body.style.backgroundColor = backgroundColor;
+    if (inputRef.current) inputRef.current.style.color = foregroundColor;
+  }, [backgroundColor, foregroundColor]);
+
   return (
     <div
-      className="cmd-container"
       ref={containerRef}
-      style={{ backgroundColor, color: foregroundColor }}
+      className="cmd-container"
+      style={{ backgroundColor, color: foregroundColor, maxHeight: height }}
     >
       {lines.map((line, index) => (
         <div
