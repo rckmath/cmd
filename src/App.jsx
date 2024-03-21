@@ -1,6 +1,107 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
+const commandDescriptions = {
+  cd: 'Changes the directory. Usage: "cd [directory]" to navigate to a specific directory, or "cd .." to move up one directory level.',
+  color:
+    'It changes the console foreground and background colors. Usage: "color [attr]" where attr specifies the color attribute of console output.',
+  cls: "Clears the console screen of all previously entered commands and outputs.",
+  help: 'Displays help information for available commands. Usage: "help" to list all commands, "help [command]" for detailed information about a specific command.',
+  exit: "Closes the command line interface.",
+  about: "Displays information about the portfolio owner.",
+  projects: "Lists all the projects in the portfolio.",
+  contact: "Provides contact information.",
+  skills: "Lists the skills and technologies the owner is proficient in.",
+  time: "Displays the current system time.",
+  date: "Displays the current system date.",
+  resume: "Displays the resume of the portfolio owner.",
+  dir: "Displays the current directory and its content.",
+  ver: "Displays the commandfolio version number.",
+  echo: 'Displays messages. Usage: "echo [<message>]" where message could be any text.',
+  open: 'It opens the specified website. Usage: "open [<url>]" where url could be any valid URL like "google.com".',
+};
+
+const commandFunctions = {
+  cd: (argument, currentPath, setCurrentPath) => {
+    let newPath = currentPath;
+    if (argument === "..") {
+      const pathParts = newPath.split("\\").filter(Boolean);
+      if (pathParts.length > 1) {
+        // Ensure not at root
+        pathParts.pop();
+        newPath = pathParts.join("\\");
+        if (newPath.length > 2) newPath = newPath + "\\"; // Add back the trailing slash unless at root
+      }
+    } else if (argument && argument !== ".") {
+      newPath = newPath.endsWith("\\")
+        ? `${newPath}${argument}`
+        : `${newPath}\\${argument}`;
+    }
+    setCurrentPath(newPath);
+    return "";
+  },
+  color: (argument, _currentPath, _setCurrentPath, changeBackgroundColor) => {
+    if (/^[0-9A-Fa-f]{2}$/.test(argument)) {
+      changeBackgroundColor(argument);
+      return `Background color changed to ${argument}`;
+    } else {
+      return 'Invalid color code. Use the format "color 0A"';
+    }
+  },
+  cls: (
+    _argument,
+    _currentPath,
+    _setCurrentPath,
+    _changeBackgroundColor,
+    setLines
+  ) => setLines([]),
+  help: () => {
+    return Object.entries(commandDescriptions)
+      .map(([command, description]) => `${command}: ${description}`)
+      .join("\n");
+  },
+  exit: () => {
+    const res = window.confirm("Do you really want to exit? :(");
+    if (res) window.close();
+    return "";
+  },
+  projects: () => "W.I.P.",
+  contact: () => "W.I.P.",
+  resume: () => "W.I.P.",
+  about: () => "W.I.P.",
+  skills: () => "W.I.P.",
+  time: () => {
+    const time = new Date().toLocaleTimeString();
+    return `The current time is ${time}`;
+  },
+  date: () => {
+    const date = new Date().toLocaleDateString();
+    return `Today's date is ${date}`;
+  },
+  dir: (_argument, currentPath) =>
+    `\nDirectory of ${currentPath}\n\nskills.exe\nsteam_account_password.txt`,
+  ver: () => "Commandfolio Version 1.0.0 by Erick Matheus",
+  echo: (argument) => argument,
+  open: (argument) => {
+    let url = argument;
+    let commandOutput = "Invalid URL";
+
+    if (!url.includes("https://")) url = "https://" + url;
+
+    const valid =
+      /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/g.test(
+        url
+      );
+
+    if (valid) {
+      commandOutput = "";
+      window.open(url);
+    }
+
+    return commandOutput;
+  },
+};
+
 const colorMap = {
   0: "#000000",
   1: "#090974",
@@ -29,6 +130,7 @@ const App = () => {
 
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [commandHistory, setCommandHistory] = useState([]);
+  const [currentPath, setCurrentPath] = useState("C:\\Users\\rckmath");
 
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [foregroundColor, setForegroundColor] = useState("#ffffff");
@@ -56,81 +158,34 @@ const App = () => {
     setInput(e.target.value);
   };
 
-  const executeCommand = (input) => {
-    setCommandHistory([...commandHistory, input]);
+  const executeCommand = (commandInput) => {
+    let commandOutput = "";
+
+    setCommandHistory([...commandHistory, commandInput]);
     setHistoryIndex(commandHistory.length);
 
-    const parts = input.trim().split(/\s+/); // Split input into parts by whitespace
-    const mainCommand = parts[0].toLowerCase(); // Main command is the first part
-    const argument = parts.slice(1).join(" "); // Join the rest as argument
+    const [mainCommand, ...args] = commandInput.trim().split(/\s+/);
+    const argument = args.join(" "); // Combine arguments back into a string if necessary
 
-    let outputLines = [`C:\\Users\\rckmath>${input}`];
+    commandOutput += commandFunctions[mainCommand.toLowerCase()]
+      ? commandFunctions[mainCommand.toLowerCase()](
+          argument,
+          currentPath,
+          setCurrentPath,
+          changeBackgroundColor,
+          setLines
+        )
+      : `'${mainCommand}' is not recognized as an internal or external command, operable program, or batch file.`;
 
-    switch (mainCommand) {
-      case "cls":
-        setLines([]); // Clears the screen
-        return;
-      case "color":
-        if (/^[0-9A-Fa-f]{2}$/.test(argument)) {
-          changeBackgroundColor(argument);
-          outputLines.push(`Background color changed to ${argument}`);
-        } else {
-          outputLines.push('Invalid color code. Use the format "color 0A"');
-        }
-        break;
-      case "bio":
-        outputLines.push("My biography soon...");
-        break;
-      case "skills":
-        outputLines.push("My skills soon...");
-        break;
-      case "help":
-        outputLines.push(
-          "Available commands: cls, color, bio, skills, help, time, date, dir, cd, exit, echo, ver"
-        );
-        break;
-      case "time":
-        const time = new Date().toLocaleTimeString();
-        outputLines.push(`The current time is ${time}`);
-        break;
-      case "date":
-        const date = new Date().toLocaleDateString();
-        outputLines.push(`Today's date is ${date}`);
-        break;
-      case "dir":
-        outputLines.push(
-          "Directory of C:\\Users\\rckmath\\commandfolio",
-          "\nskills.exe",
-          "steam_account_password.txt"
-        );
-        break;
-      case "cd":
-        outputLines.push(`Changed directory to ${argument}`);
-        break;
-      case "exit":
-        window.close();
-        break;
-      case "echo":
-        outputLines.push(argument);
-        break;
-      case "ver":
-        outputLines.push("Commandfolio Version 1.0.0 by Erick Matheus");
-        break;
-      default:
-        outputLines.push(
-          `'${mainCommand}' is not recognized as an internal or external command, operable program, or batch file.`
-        );
-        break;
-    }
-
-    const newLines = [
+    // Update the displayed lines
+    setLines([
       ...lines,
-      ...outputLines.map((text) => ({ type: "output", text })),
+      { type: "command", text: currentPath + ">" + commandInput },
+      { type: "output", text: commandOutput },
       { type: "output", text: "\n" },
-    ];
+    ]);
 
-    setLines(newLines);
-    setCommandHistory([...commandHistory, input]);
+    setCommandHistory([...commandHistory, commandInput]);
     setHistoryIndex(commandHistory.length);
     setInput("");
   };
@@ -171,14 +226,11 @@ const App = () => {
       e.preventDefault();
       const newIndex = Math.min(historyIndex + 1, commandHistory.length - 1);
 
-      console.log(newIndex, commandHistory.length);
-
       if (commandHistory[newIndex]) {
         setInput(commandHistory[newIndex]);
         inputRef.current.value = commandHistory[newIndex];
         setHistoryIndex(newIndex);
       } else if (newIndex >= commandHistory.length) {
-        console.log("alou");
         setInput("");
         setHistoryIndex(commandHistory.length);
       }
@@ -201,7 +253,7 @@ const App = () => {
         </div>
       ))}
       <div className="input-line">
-        <span style={{ color: foregroundColor }}>C:\Users\rckmath&gt;</span>
+        <span style={{ color: foregroundColor }}>{currentPath}&gt;</span>
         <div className="input-wrapper">
           <input
             type="text"
@@ -211,7 +263,7 @@ const App = () => {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             className="blinking-cursor"
-            style={{ color: foregroundColor, backgroundColor }} 
+            style={{ backgroundColor, color: foregroundColor }}
           />
         </div>
       </div>

@@ -2,7 +2,7 @@
   background-color: black;
   color: white;
   font-family: "Consolas", "Courier New", monospace;
-  padding: 20px;
+  padding: 10px;
   height: 100vh;
   overflow: auto;
 }
@@ -28,7 +28,7 @@
 
 .input-line input {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   background-color: black;
   color: white;
   border: none;
@@ -47,7 +47,6 @@
 .blinking-cursor {
   animation: blink-caret 1s step-end infinite;
   color: white;
-  position: absolute;
 }
 
 @keyframes blink-caret {
