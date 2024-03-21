@@ -54,7 +54,9 @@ const commandFunctions = {
     _setCurrentPath,
     _changeBackgroundColor,
     setLines
-  ) => setLines([]),
+  ) => {
+    setLines([]);
+  },
   help: () => {
     return Object.entries(commandDescriptions)
       .map(([command, description]) => `${command}: ${description}`)
@@ -177,13 +179,14 @@ const App = () => {
         )
       : `'${mainCommand}' is not recognized as an internal or external command, operable program, or batch file.`;
 
-    // Update the displayed lines
-    setLines([
-      ...lines,
-      { type: "command", text: currentPath + ">" + commandInput },
-      { type: "output", text: commandOutput },
-      { type: "output", text: "\n" },
-    ]);
+    if (mainCommand.toLowerCase() !== "cls") {
+      setLines([
+        ...lines,
+        { type: "command", text: currentPath + ">" + commandInput },
+        { type: "output", text: commandOutput },
+        { type: "output", text: "\n" },
+      ]);
+    }
 
     setCommandHistory([...commandHistory, commandInput]);
     setHistoryIndex(commandHistory.length);
