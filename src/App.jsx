@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
+
 import useWindowSize from "./hooks/UseWindowSize";
+import DisplayResume from "./components/DisplayResume";
 
 const commandDescriptions = {
   cd: 'Changes the directory. Usage: "cd [directory]" to navigate to a specific directory, or "cd .." to move up one directory level.',
@@ -15,9 +17,9 @@ const commandDescriptions = {
   skills: "Lists the skills and technologies the owner is proficient in.",
   time: "Displays the current system time.",
   date: "Displays the current system date.",
-  resume: "Displays the resume of the portfolio owner.",
+  resume: "Displays the resume (curriculum vitae) of the portfolio owner.",
   dir: "Displays the current directory and its content.",
-  ver: "Displays the commandfolio version number.",
+  ver: 'Displays the "commandfolio" version number.',
   echo: 'Displays messages. Usage: "echo [<message>]" where message could be any text.',
   open: 'It opens the specified website. Usage: "open [<url>]" where url could be any valid URL like "google.com".',
 };
@@ -69,7 +71,17 @@ const commandFunctions = {
   },
   projects: () => "W.I.P.",
   contact: () => "W.I.P.",
-  resume: () => "W.I.P.",
+  resume: (
+    _argument,
+    _currentPath,
+    _setCurrentPath,
+    _changeBackgroundColor,
+    _setLines,
+    setDisplayResume
+  ) => {
+    setDisplayResume(true);
+    return "";
+  },
   about: () => "W.I.P.",
   skills: () => "W.I.P.",
   time: () => {
@@ -128,6 +140,7 @@ const App = () => {
     "Microsoft Windows [Version 10.0.19041.685]\n(c) 2024 Microsoft Corporation. All rights reserved.\n\nWelcome to Commandfolio Version 1.0.0 by Erick Matheus\n\n";
 
   const [input, setInput] = useState("");
+  const [displayResume, setDisplayResume] = useState(false);
   const [lines, setLines] = useState([{ type: "output", text: initialHeader }]);
 
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -166,9 +179,10 @@ const App = () => {
           currentPath,
           setCurrentPath,
           changeBackgroundColor,
-          setLines
+          setLines,
+          setDisplayResume
         )
-      : `'${mainCommand}' is not recognized as an internal or external command, operable program, or batch file.`;
+      : `'${mainCommand}' is not recognized as an internal or external command, operable program, or batch file.\nType and enter 'help' for the command list.`;
 
     if (mainCommand.toLowerCase() !== "cls") {
       setLines([
@@ -251,36 +265,40 @@ const App = () => {
   }, [backgroundColor, foregroundColor]);
 
   return (
-    <div
-      ref={containerRef}
-      className="cmd-container"
-      style={{ backgroundColor, color: foregroundColor, maxHeight: height }}
-    >
-      {lines.map((line, index) => (
-        <div
-          key={index}
-          style={{ color: foregroundColor }}
-          className={line.type === "command" ? "input-line" : "output-line"}
-        >
-          {line.text}
-        </div>
-      ))}
-      <div className="input-line">
-        <span style={{ color: foregroundColor }}>{currentPath}&gt;</span>
-        <div className="input-wrapper">
-          <input
-            type="text"
-            value={input}
-            ref={inputRef}
-            placeholder="_"
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            className="blinking-cursor"
-            style={{ backgroundColor, color: foregroundColor }}
-          />
+    <>
+      <div
+        ref={containerRef}
+        className="cmd-container"
+        style={{ backgroundColor, color: foregroundColor, maxHeight: height }}
+      >
+        {lines.map((line, index) => (
+          <div
+            key={index}
+            style={{ color: foregroundColor }}
+            className={line.type === "command" ? "input-line" : "output-line"}
+          >
+            {line.text}
+          </div>
+        ))}
+        <div className="input-line">
+          <span style={{ color: foregroundColor }}>{currentPath}&gt;</span>
+          <div className="input-wrapper">
+            <input
+              type="text"
+              value={input}
+              ref={inputRef}
+              placeholder="_"
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              className="blinking-cursor"
+              style={{ backgroundColor, color: foregroundColor }}
+            />
+          </div>
         </div>
       </div>
-    </div>
+
+      <DisplayResume open={displayResume} setOpen={setDisplayResume} />
+    </>
   );
 };
 
