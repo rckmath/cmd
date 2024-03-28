@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
+import Typography from "@mui/material/Typography";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
 import useWindowSize from "./hooks/UseWindowSize";
-import DisplayResume from "./components/DisplayResume";
+
+import SimpleTable from "./components/SimpleTable";
+import ResumeModal from "./components/ResumeModal";
 
 const commandDescriptions = {
   cd: 'Changes the directory. Usage: "cd [directory]" to navigate to a specific directory, or "cd .." to move up one directory level.',
-  color:
-    'It changes the console foreground and background colors. Usage: "color [attr]" where attr specifies the color attribute of console output.',
+  color: 'Changes the console foreground and background colors. Usage: "color [attr]" where attr is the color hex.',
   cls: "Clears the console screen of all previously entered commands and outputs.",
-  help: 'Displays help information for available commands. Usage: "help" to list all commands, "help [command]" for detailed information about a specific command.',
+  help: 'Displays help information for available commands. Usage: "help" to list all commands.',
   exit: "Closes the command line interface.",
   about: "Displays information about the portfolio owner.",
   projects: "Lists all the projects in the portfolio.",
@@ -20,8 +24,8 @@ const commandDescriptions = {
   resume: "Displays the resume (curriculum vitae) of the portfolio owner.",
   dir: "Displays the current directory and its content.",
   ver: 'Displays the "commandfolio" version number.',
-  echo: 'Displays messages. Usage: "echo [<message>]" where message could be any text.',
-  open: 'It opens the specified website. Usage: "open [<url>]" where url could be any valid URL like "google.com".',
+  echo: 'Displays messages. Usage: "echo [message]" where message could be any text.',
+  open: 'It opens the specified website. Usage: "open [url]" where url could be any valid URL like "google.com".',
 };
 
 const commandFunctions = {
@@ -36,79 +40,73 @@ const commandFunctions = {
         if (newPath.length > 2) newPath = newPath + "\\"; // Add back the trailing slash unless at root
       }
     } else if (argument && argument !== ".") {
-      newPath = newPath.endsWith("\\")
-        ? `${newPath}${argument}`
-        : `${newPath}\\${argument}`;
+      newPath = newPath.endsWith("\\") ? `${newPath}${argument}` : `${newPath}\\${argument}`;
     }
     setCurrentPath(newPath);
-    return "";
+    return <></>;
   },
   color: (argument, _currentPath, _setCurrentPath, changeBackgroundColor) => {
     if (/^[0-9A-Fa-f]{2}$/.test(argument) && changeBackgroundColor(argument)) {
-      return `Background color changed to ${argument}`;
+      return <>{`Background color changed to ${argument}`}</>;
     } else {
-      return 'Invalid color code combination. Use the format "color 0A"';
+      return <>{'Invalid color code combination. Use the format "color 0A"'}</>;
     }
   },
-  cls: (
-    _argument,
-    _currentPath,
-    _setCurrentPath,
-    _changeBackgroundColor,
-    setLines
-  ) => {
-    setLines([]);
-  },
+  cls: (_argument, _currentPath, _setCurrentPath, _changeBackgroundColor, setLines) => setLines([]),
   help: () => {
-    return Object.entries(commandDescriptions)
-      .map(([command, description]) => `${command}: ${description}`)
-      .join("\n");
+    const rows = [];
+
+    Object.entries(commandDescriptions).forEach(([command, description]) => {
+      rows.push(
+        <>
+          <td>{command}</td>
+          <td>{description}</td>
+        </>
+      );
+    });
+
+    return (
+      <SimpleTable>
+        {rows.map((r, i) => (
+          <tr key={i}>{r}</tr>
+        ))}
+      </SimpleTable>
+    );
   },
   exit: () => {
     const res = window.confirm("Do you really want to exit? :(");
     if (res) window.close();
-    return "";
+    return <></>;
   },
-  projects: () => "W.I.P.",
-  contact: () => "W.I.P.",
-  resume: (
-    _argument,
-    _currentPath,
-    _setCurrentPath,
-    _changeBackgroundColor,
-    _setLines,
-    setDisplayResume
-  ) => {
+  projects: () => <>W.I.P.</>,
+  contact: () => <>W.I.P.</>,
+  resume: (_argument, _currentPath, _setCurrentPath, _changeBackgroundColor, _setLines, setDisplayResume) => {
     setDisplayResume(true);
-    return "";
+    return <></>;
   },
-  about: () => "W.I.P.",
-  skills: () => "W.I.P.",
+  about: () => <>W.I.P.</>,
+  skills: () => <>W.I.P.</>,
   time: () => {
     const time = new Date().toLocaleTimeString();
-    return `The current time is ${time}`;
+    return <>{`The current time is ${time}`}</>;
   },
   date: () => {
     const date = new Date().toLocaleDateString();
-    return `Today's date is ${date}`;
+    return <>{`Today's date is ${date}`}</>;
   },
-  dir: (_argument, currentPath) =>
-    `\nDirectory of ${currentPath}\n\nskills.exe\nsteam_account_password.txt`,
-  ver: () => "Commandfolio Version 1.0.0 by Erick Matheus",
-  echo: (argument) => argument,
+  dir: (_argument, currentPath) => <>{`\nDirectory of ${currentPath}\n\nskills.exe\nsteam_account_password.txt`}</>,
+  ver: () => <>Commandfolio Version 1.0.0 by Erick Matheus</>,
+  echo: (argument) => <>{argument}</>,
   open: (argument) => {
     let url = argument;
-    let commandOutput = "Invalid URL";
+    let commandOutput = <>Invalid URL</>;
 
     if (!url.includes("https://")) url = "https://" + url;
 
-    const valid =
-      /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/g.test(
-        url
-      );
+    const valid = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/g.test(url);
 
     if (valid) {
-      commandOutput = "";
+      commandOutput = <></>;
       window.open(url);
     }
 
@@ -136,12 +134,23 @@ const colorMap = {
 };
 
 const App = () => {
-  const initialHeader =
-    "Microsoft Windows [Version 10.0.19041.685]\n(c) 2024 Microsoft Corporation. All rights reserved.\n\nWelcome to Commandfolio Version 1.0.0 by Erick Matheus\n\n";
+  const theme = createTheme({
+    typography: {
+      allVariants: { fontFamily: "Consolas" },
+    },
+  });
+
+  const initialHeader = (
+    <Typography>
+      {"Microsoft Windows [Version 10.0.19041.685]\n"}
+      {"(c) 2024 Microsoft Corporation. All rights reserved.\n"}
+      {"Welcome to Commandfolio v1.0.0 by Erick Matheus\n\n"}
+    </Typography>
+  );
 
   const [input, setInput] = useState("");
   const [displayResume, setDisplayResume] = useState(false);
-  const [lines, setLines] = useState([{ type: "output", text: initialHeader }]);
+  const [lines, setLines] = useState([{ type: "output", element: initialHeader }]);
 
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [commandHistory, setCommandHistory] = useState([]);
@@ -155,9 +164,7 @@ const App = () => {
   const { height } = useWindowSize();
 
   const toggleCursorBlinking = () => {
-    inputRef.current?.value
-      ? (inputRef.current.className = "")
-      : (inputRef.current.className = "blinking-cursor");
+    inputRef.current?.value ? (inputRef.current.className = "") : (inputRef.current.className = "blinking-cursor");
   };
 
   const handleChange = (e) => {
@@ -165,7 +172,7 @@ const App = () => {
   };
 
   const executeCommand = (commandInput) => {
-    let commandOutput = "";
+    let commandOutput = <></>;
 
     setCommandHistory([...commandHistory, commandInput]);
     setHistoryIndex(commandHistory.length);
@@ -173,23 +180,25 @@ const App = () => {
     const [mainCommand, ...args] = commandInput.trim().split(/\s+/);
     const argument = args.join(" "); // Combine arguments back into a string if necessary
 
-    commandOutput += commandFunctions[mainCommand.toLowerCase()]
-      ? commandFunctions[mainCommand.toLowerCase()](
-          argument,
-          currentPath,
-          setCurrentPath,
-          changeBackgroundColor,
-          setLines,
-          setDisplayResume
-        )
-      : `'${mainCommand}' is not recognized as an internal or external command, operable program, or batch file.\nType and enter 'help' for the command list.`;
+    commandOutput = commandFunctions[mainCommand.toLowerCase()] ? (
+      commandFunctions[mainCommand.toLowerCase()](
+        argument,
+        currentPath,
+        setCurrentPath,
+        changeBackgroundColor,
+        setLines,
+        setDisplayResume
+      )
+    ) : (
+      <>{`'${mainCommand}' is not recognized as an internal or external command, operable program, or batch file.\nType and enter 'help' for the command list.`}</>
+    );
 
     if (mainCommand.toLowerCase() !== "cls") {
       setLines([
         ...lines,
-        { type: "command", text: currentPath + ">" + commandInput },
-        { type: "output", text: commandOutput },
-        { type: "output", text: "\n" },
+        { type: "command", element: <>{currentPath + ">" + commandInput}</> },
+        { type: "output", element: commandOutput },
+        { type: "output", element: <br /> },
       ]);
     }
 
@@ -265,7 +274,7 @@ const App = () => {
   }, [backgroundColor, foregroundColor]);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <div
         ref={containerRef}
         className="cmd-container"
@@ -277,7 +286,7 @@ const App = () => {
             style={{ color: foregroundColor }}
             className={line.type === "command" ? "input-line" : "output-line"}
           >
-            {line.text}
+            {line.element}
           </div>
         ))}
         <div className="input-line">
@@ -297,8 +306,8 @@ const App = () => {
         </div>
       </div>
 
-      <DisplayResume open={displayResume} setOpen={setDisplayResume} />
-    </>
+      <ResumeModal open={displayResume} setOpen={setDisplayResume} />
+    </ThemeProvider>
   );
 };
 

@@ -6,14 +6,9 @@
   color: white;
   background-color: black;
 
-  font-size: 1rem;
-  font-weight: 500;
-  font-family: "Consolas", "Courier New", monospace;
+  font-size: 0.95rem;
+  font-weight: 400;
+  font-family: "Consolas";
 
   color-scheme: light dark;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
