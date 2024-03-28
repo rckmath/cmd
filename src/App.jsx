@@ -136,7 +136,7 @@ const colorMap = {
 const App = () => {
   const theme = createTheme({
     typography: {
-      allVariants: { fontFamily: "Consolas monospace" },
+      allVariants: { fontFamily: "Consolas" },
     },
   });
 

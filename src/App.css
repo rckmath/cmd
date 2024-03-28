@@ -26,13 +26,13 @@
 }
 
 .input-line input {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 400;
   background-color: black;
   color: white;
   border: none;
   outline: none;
-  font-family: Consolas monospace;
+  font-family: "Consolas";
   flex-grow: 1;
   caret-color: transparent; /* Hide the default caret */
 }
