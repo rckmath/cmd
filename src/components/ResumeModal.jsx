@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useMediaQuery } from "react-responsive";
 
 import Box from "@mui/material/Box";
@@ -28,7 +28,7 @@ const mainBox = {
 };
 
 const ResumeModal = ({ open, setOpen }) => {
-  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const downloadResume = () => {
     fetch("./src/docs/CV ERICK M L PACHECO.pdf").then((response) => {
@@ -59,9 +59,9 @@ const ResumeModal = ({ open, setOpen }) => {
           </IconButton>
         </Box>
 
-        {isTabletOrMobile ? (
+        {isMobile ? (
           <Button color="success" variant="contained" endIcon={<DownloadIcon />} onClick={() => downloadResume()}>
-            Click to download my cv
+            Click to download my CV
           </Button>
         ) : (
           <iframe src="./src/docs/CV ERICK M L PACHECO.pdf" style={{ height: "90vh", border: 0 }}></iframe>

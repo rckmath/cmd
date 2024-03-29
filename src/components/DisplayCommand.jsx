@@ -1,38 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-import Fragment from "../components/Fragment";
-import SimpleText from "../components/SimpleText";
-import SimpleTable from "../components/SimpleTable";
+import Fragment from "./base/Fragment";
+import SimpleText from "./base/SimpleText";
+import SimpleTable from "./base/SimpleTable";
 
-const commandDescriptions = {
-  cd: 'Changes the directory. Usage: "cd [directory]" to navigate to a specific directory, or "cd .." to move up one directory level.',
-  color: 'Changes the console foreground and background colors. Usage: "color [attr]" where attr is the color hex.',
-  cls: "Clears the console screen of all previously entered commands and outputs.",
-  help: 'Displays help information for available commands. Usage: "help" to list all commands.',
-  exit: "Closes the command line interface.",
-  about: "Displays information about the portfolio owner.",
-  projects: "Lists all the projects in the portfolio.",
-  contact: "Provides contact information.",
-  skills: "Lists the skills and technologies the owner is proficient in.",
-  time: "Displays the current system time.",
-  date: "Displays the current system date.",
-  resume: "Displays the resume (curriculum vitae) of the portfolio owner.",
-  dir: "Displays the current directory and its content.",
-  ver: 'Displays the "commandfolio" version number.',
-  echo: 'Displays messages. Usage: "echo [message]" where message could be any text.',
-  open: 'It opens the specified website. Usage: "open [url]" where url could be any valid URL like "google.com".',
-};
+import { commandDescriptionMap } from "../configs/mappings";
 
-export const commandFunctions = {
+const commandFunctions = {
   cd: (argument, currentPath, setCurrentPath) => {
     let newPath = currentPath;
     if (argument === "..") {
       const pathParts = newPath.split("\\").filter(Boolean);
       if (pathParts.length > 1) {
-        // Ensure not at root
         pathParts.pop();
         newPath = pathParts.join("\\");
-        if (newPath.length > 2) newPath = newPath + "\\"; // Add back the trailing slash unless at root
+        if (newPath.length > 2) newPath = newPath + "\\";
       }
     } else if (argument && argument !== ".") {
       newPath = newPath.endsWith("\\") ? `${newPath}${argument}` : `${newPath}\\${argument}`;
@@ -53,7 +35,7 @@ export const commandFunctions = {
   help: () => {
     const rows = [];
 
-    Object.entries(commandDescriptions).forEach(([command, description]) => {
+    Object.entries(commandDescriptionMap).forEach(([command, description]) => {
       rows.push(
         <>
           <td>{command}</td>
@@ -112,3 +94,46 @@ export const commandFunctions = {
     return commandOutput;
   },
 };
+
+const DisplayCommand = ({
+  setLines,
+  currentPath,
+  commandInput,
+  setCurrentPath,
+  setDisplayResume,
+  changeBackgroundColor,
+}) => {
+  const [commandElement, setCommandElement] = useState(<Fragment />);
+
+  const executeCommandAndGetElement = () => {
+    let [mainCommand, ...args] = commandInput.trim().split(/\s+/);
+    const argument = args.join(" ");
+
+    mainCommand = mainCommand.toLowerCase();
+
+    return commandFunctions[mainCommand.toLowerCase()] ? (
+      commandFunctions[mainCommand.toLowerCase()](
+        argument,
+        currentPath,
+        setCurrentPath,
+        changeBackgroundColor,
+        setLines,
+        setDisplayResume
+      )
+    ) : (
+      <>{`'${mainCommand}' is not recognized as an internal or external command, operable program, or batch file.\nType and enter 'help' for the command list.`}</>
+    );
+  };
+
+  useEffect(() => {
+    setCommandElement(executeCommandAndGetElement());
+  }, []);
+
+  return commandElement;
+};
+
+function commandInputAreEqual(prev, next) {
+  return prev.commandInput === next.commandInput;
+}
+
+export default React.memo(DisplayCommand, commandInputAreEqual);
