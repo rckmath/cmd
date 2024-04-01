@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useMediaQuery } from "react-responsive";
 
 import Box from "@mui/material/Box";
@@ -8,27 +8,8 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import DownloadIcon from "@mui/icons-material/Download";
 
-const mainBox = {
-  top: "50%",
-  left: "50%",
-  position: "absolute",
-  transform: "translate(-50%, -50%)",
-
-  zIndex: 9999,
-  width: "80vw",
-
-  borderWidth: 0,
-
-  display: "flex",
-  overflow: "hidden",
-  flexDirection: "column",
-
-  outline: "none",
-  userSelect: "none",
-};
-
 const ResumeModal = ({ open, setOpen }) => {
-  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const downloadResume = () => {
     fetch("./src/docs/CV ERICK M L PACHECO.pdf").then((response) => {
@@ -59,9 +40,9 @@ const ResumeModal = ({ open, setOpen }) => {
           </IconButton>
         </Box>
 
-        {isTabletOrMobile ? (
+        {isMobile ? (
           <Button color="success" variant="contained" endIcon={<DownloadIcon />} onClick={() => downloadResume()}>
-            Click to download my cv
+            Click to download my CV
           </Button>
         ) : (
           <iframe src="./src/docs/CV ERICK M L PACHECO.pdf" style={{ height: "90vh", border: 0 }}></iframe>
@@ -69,6 +50,25 @@ const ResumeModal = ({ open, setOpen }) => {
       </Box>
     </Modal>
   );
+};
+
+const mainBox = {
+  top: "50%",
+  left: "50%",
+  position: "absolute",
+  transform: "translate(-50%, -50%)",
+
+  zIndex: 9999,
+  width: "80vw",
+
+  borderWidth: 0,
+
+  display: "flex",
+  overflow: "hidden",
+  flexDirection: "column",
+
+  outline: "none",
+  userSelect: "none",
 };
 
 export default ResumeModal;
