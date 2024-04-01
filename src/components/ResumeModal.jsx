@@ -8,25 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import DownloadIcon from "@mui/icons-material/Download";
 
-const mainBox = {
-  top: "50%",
-  left: "50%",
-  position: "absolute",
-  transform: "translate(-50%, -50%)",
-
-  zIndex: 9999,
-  width: "80vw",
-
-  borderWidth: 0,
-
-  display: "flex",
-  overflow: "hidden",
-  flexDirection: "column",
-
-  outline: "none",
-  userSelect: "none",
-};
-
 const ResumeModal = ({ open, setOpen }) => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
@@ -69,6 +50,25 @@ const ResumeModal = ({ open, setOpen }) => {
       </Box>
     </Modal>
   );
+};
+
+const mainBox = {
+  top: "50%",
+  left: "50%",
+  position: "absolute",
+  transform: "translate(-50%, -50%)",
+
+  zIndex: 9999,
+  width: "80vw",
+
+  borderWidth: 0,
+
+  display: "flex",
+  overflow: "hidden",
+  flexDirection: "column",
+
+  outline: "none",
+  userSelect: "none",
 };
 
 export default ResumeModal;
