@@ -24,7 +24,6 @@ export const commandDescriptionMap = {
   help: 'Displays help information for available commands. Usage: "help" to list all commands.',
   exit: "Closes the command line interface.",
   about: "Displays information about the portfolio owner.",
-  projects: "Lists all the projects in the portfolio.",
   contact: "Provides contact information.",
   skills: "Lists the skills and technologies the owner is proficient in.",
   time: "Displays the current system time.",

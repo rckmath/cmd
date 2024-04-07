@@ -69,6 +69,6 @@ const mainBox = {
 
   outline: "none",
   userSelect: "none",
-};
+}
 
 export default ResumeModal;
