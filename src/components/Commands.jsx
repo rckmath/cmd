@@ -101,7 +101,7 @@ const Commands = {
     <SimpleText
       content={
         `Erick Matheus Lopes Pacheco, ${getAge()} years old.\n` +
-        `Graduate software engineer with over four years of experience as a back-end developer, well-versed in developing and integrating RESTful and SOAP APIs, especially using JavaScript and .NET. Experienced with many projects, front-end development and providing infrastructure (DevOps) support. Currently acting as a full-stack engineer, eager to specialize in Blockchain, Web3, and smart contracts development over the next three years.`
+        `Graduate software engineer with over four years of experience as a back-end developer, well-versed in developing and integrating RESTful and SOAP APIs, especially using JavaScript and .NET. Experienced with many projects, front-end development and in providing infrastructure (DevOps) support. Currently acting as a full-stack engineer, eager to specialize in Blockchain, Web3, and smart contracts development over the next three years.`
       }
     />
   ),
