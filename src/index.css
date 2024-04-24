@@ -1,29 +1,14 @@
-.input {
-  min-width: 50vw;
-  max-width: 80vw;
-  border: none;
-  background-color: #000;
-  color: #faebd7;
-  caret-color: transparent;
-  font-family: Consolas;
-  font-size: 1rem;
+* {
+  box-sizing: border-box;
 }
 
-.input:focus {
-  outline: none;
-}
+:root {
+  color: white;
+  background-color: black;
 
-.input::placeholder {
-  color: #faebd7;
-  font-weight: bolder;
-}
+  font-size: 0.95rem;
+  font-weight: 400;
+  font-family: "Consolas";
 
-.blink[type="text"] {
-  animation: blinker 1s step-end infinite;
-}
-
-@keyframes blinker {
-  50% {
-    opacity: 0;
-  }
+  color-scheme: light dark;
 }
