@@ -36,14 +36,16 @@ const CommandPrompt = () => {
 
     if (mainCommand === "cls") return cls();
 
-    if (!Commands[mainCommand]) {
+    const commandFn = Commands[mainCommand]
+
+    if (!commandFn) {
       component = (
         <SimpleText
           content={`'${mainCommand}' is not recognized as an internal or external command, operable program, or batch file.\nType and enter 'help' for the command list.`}
         />
       );
     } else {
-      component = Commands[mainCommand](argument, currentPath, setCurrentPath, changeBackgroundColor, setDisplayResume);
+      component = commandFn(argument, currentPath, setCurrentPath, changeBackgroundColor, setDisplayResume);
     }
 
     setLines([

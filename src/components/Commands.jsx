@@ -1,8 +1,12 @@
 import { Fragment } from "react";
 
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+
 import SimpleText from "./base/SimpleText";
 import SimpleTable from "./base/SimpleTable";
 
+import { getAge } from "../configs/utils";
 import { commandDescriptionMap } from "../configs/mappings";
 
 const changePath = (argument, currentPath) => {
@@ -54,14 +58,72 @@ const Commands = {
     if (res) window.close();
     return <Fragment />;
   },
-  projects: () => <SimpleText content="W.I.P." />,
-  contact: () => <SimpleText content="W.I.P." />,
+  contact: () => {
+    return (
+      <>
+        <Typography align="justify" maxWidth="600px">
+          Where to find me:
+        </Typography>
+        <span>- E-mail: </span>
+        <Link href="mailto:ericklopes02@gmail.com" underline="none" target="_blank" rel="noopener" color="inherit">
+          {"ericklopes02@gmail.com"}
+        </Link>
+        <br />
+        <span>- LinkedIn: </span>
+        <Link
+          href="https://www.linkedin.com/in/rckmath"
+          underline="none"
+          target="_blank"
+          rel="noopener"
+          color="inherit"
+        >
+          {"https://www.linkedin.com/in/rckmath/"}
+        </Link>
+        <br />
+        <span>- Steam: </span>
+        <Link
+          href="https://steamcommunity.com/id/BossBR/"
+          underline="none"
+          target="_blank"
+          rel="noopener"
+          color="inherit"
+        >
+          {"https://steamcommunity.com/id/BossBR/"}
+        </Link>
+      </>
+    );
+  },
   resume: (_, __, ___, ____, setDisplayResume) => {
     setDisplayResume(true);
     return <Fragment />;
   },
-  about: () => <SimpleText content="W.I.P." />,
-  skills: () => <SimpleText content="W.I.P." />,
+  about: () => (
+    <SimpleText
+      content={
+        `Erick Matheus Lopes Pacheco, ${getAge()} years old.\n` +
+        `Graduate software engineer with over four years of experience as a back-end developer, well-versed in developing and integrating RESTful and SOAP APIs, especially using JavaScript and .NET. Experienced with many projects, front-end development and in providing infrastructure (DevOps) support. Currently acting as a full-stack engineer, eager to specialize in Blockchain, Web3, and smart contracts development over the next three years.`
+      }
+    />
+  ),
+  skills: () => (
+    <SimpleText
+      content={
+        `Used to work with the best practices of the programming and software architecture like:\n` +
+        `- Design Patterns, SOLID, TDD/BDD, Git Flow and more.\n\n` +
+        `Already worked with:\n` +
+        `- Node.js, TypeScript, React.js, React Native, AngularJS, Jest;\n` +
+        `- C# .NET 8.0, .NET Framework, Entity Framework (EF);\n` +
+        `- AWS, Nginx, Docker, Docker Compose;\n` +
+        `- PostgreSQL, SQLite, MS-SQL Server, Firebase;\n` +
+        `- SCRUM, Jira, IBM Maximo, API integration and more.\n\n` +
+        `Also touched and had a hands on:\n` +
+        `- Solidity, Web3.js, Ethers, Truffle;\n` +
+        `- Java, C/C++, Flutter, vanilla PHP;\n` +
+        `- MySQL, MongoDB;\n` +
+        `- Trello and more.`
+      }
+    />
+  ),
   time: () => {
     const time = new Date().toLocaleTimeString();
     return <SimpleText content={`The current time is ${time}`} />;
