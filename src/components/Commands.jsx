@@ -65,8 +65,8 @@ const Commands = {
           Where to find me:
         </Typography>
         <span>- E-mail: </span>
-        <Link href="mailto:ericklopes02@gmail.com" underline="none" target="_blank" rel="noopener" color="inherit">
-          {"ericklopes02@gmail.com"}
+        <Link href="mailto:ericklopes02@outlook.com" underline="none" target="_blank" rel="noopener" color="inherit">
+          {"ericklopes02@outlook.com"}
         </Link>
         <br />
         <span>- LinkedIn: </span>
