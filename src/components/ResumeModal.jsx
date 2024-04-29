@@ -1,18 +1,18 @@
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import DownloadIcon from "@mui/icons-material/Download";
+
+import { Box, Modal, Button, IconButton } from "@mui/material";
 
 const ResumeModal = ({ open, setOpen }) => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
-  const downloadResume = () => {
-    fetch("./src/docs/CV ERICK M L PACHECO.pdf").then((response) => {
+  const downloadResume = (e) => {
+    e.preventDefault();
+
+    fetch("./cmd/en-us_resume.pdf").then((response) => {
       response.blob().then((blob) => {
         const fileURL = window.URL.createObjectURL(blob);
 
@@ -41,11 +41,11 @@ const ResumeModal = ({ open, setOpen }) => {
         </Box>
 
         {isMobile ? (
-          <Button color="success" variant="contained" endIcon={<DownloadIcon />} onClick={() => downloadResume()}>
+          <Button color="success" variant="contained" endIcon={<DownloadIcon />} onClick={downloadResume}>
             Click to download my CV
           </Button>
         ) : (
-          <iframe src="./src/docs/CV ERICK M L PACHECO.pdf" style={{ height: "90vh", border: 0 }}></iframe>
+          <iframe src="./cmd/en-us_resume.pdf" style={{ height: "90vh", border: 0 }}></iframe>
         )}
       </Box>
     </Modal>
@@ -69,6 +69,6 @@ const mainBox = {
 
   outline: "none",
   userSelect: "none",
-}
+};
 
 export default ResumeModal;
