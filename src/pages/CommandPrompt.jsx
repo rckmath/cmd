@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import useWindowSize from "../hooks/UseWindowSize";
 
 import Commands from "../components/Commands";
-import ResumeModal from "../components/ResumeModal";
 import CommandInput from "../components/CommandInput";
 import SimpleText from "../components/base/SimpleText";
 import InitialHeader from "../components/InitialHeader";
@@ -13,7 +12,6 @@ import CommandDisplay from "../components/CommandDisplay";
 import { colorMap } from "../configs/mappings";
 
 const CommandPrompt = () => {
-  const [displayResume, setDisplayResume] = useState(false);
   const [lines, setLines] = useState([{ type: "output", element: <InitialHeader /> }]);
 
   const [currentPath, setCurrentPath] = useState("C:\\Users\\rckmath");
@@ -36,7 +34,7 @@ const CommandPrompt = () => {
 
     if (mainCommand === "cls") return cls();
 
-    const commandFn = Commands[mainCommand]
+    const commandFn = Commands[mainCommand];
 
     if (!commandFn) {
       component = (
@@ -45,7 +43,7 @@ const CommandPrompt = () => {
         />
       );
     } else {
-      component = commandFn(argument, currentPath, setCurrentPath, changeBackgroundColor, setDisplayResume);
+      component = commandFn(argument, currentPath, setCurrentPath, changeBackgroundColor);
     }
 
     setLines([
@@ -98,7 +96,6 @@ const CommandPrompt = () => {
           onCommandExecution={onCommandExecution}
         />
       </Box>
-      <ResumeModal open={displayResume} setOpen={setDisplayResume} />
     </>
   );
 };
