@@ -28,7 +28,7 @@ export const commandDescriptionMap = {
   skills: "Lists the skills and technologies the owner is proficient in.",
   time: "Displays the current system time.",
   date: "Displays the current system date.",
-  resume: "Displays the resume (curriculum vitae) of the portfolio owner.",
+  resume: "Requests the resume (curriculum vitae) of the portfolio owner.",
   dir: "Displays the current directory and its content.",
   ver: 'Displays the "commandfolio" version number.',
   echo: 'Displays messages. Usage: "echo [message]" where message could be any text.',
