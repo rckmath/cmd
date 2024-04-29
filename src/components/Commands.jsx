@@ -93,8 +93,12 @@ const Commands = {
       </>
     );
   },
-  resume: (_, __, ___, ____, setDisplayResume) => {
-    setDisplayResume(true);
+  resume: () => {
+    const emailTo = "ericklopes02@outlook.com";
+    const emailSubject = "Hi, I've saw your web portfolio...";
+    const emailBody =
+      "...and I want to know more about you. Could you please me send your resume?%0D%0A%0D%0A<write here more details>";
+    location.href = "mailto:" + emailTo + "?subject=" + emailSubject + "&body=" + emailBody;
     return <Fragment />;
   },
   about: () => (
