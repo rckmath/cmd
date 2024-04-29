@@ -12,7 +12,7 @@ const ResumeModal = ({ open, setOpen }) => {
   const downloadResume = (e) => {
     e.preventDefault();
 
-    fetch("./cmd/en-us_resume.pdf").then((response) => {
+    fetch("/cmd/en-us_resume.pdf").then((response) => {
       response.blob().then((blob) => {
         const fileURL = window.URL.createObjectURL(blob);
 
@@ -45,7 +45,7 @@ const ResumeModal = ({ open, setOpen }) => {
             Click to download my CV
           </Button>
         ) : (
-          <iframe src="./cmd/en-us_resume.pdf" style={{ height: "90vh", border: 0 }}></iframe>
+          <iframe src="/cmd/en-us_resume.pdf" style={{ height: "90vh", border: 0 }}></iframe>
         )}
       </Box>
     </Modal>
